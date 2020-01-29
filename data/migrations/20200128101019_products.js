@@ -1,7 +1,8 @@
 
 exports.up = function (knex) {
     return knex.schema.createTable('products', tbl => {
-        tbl.increment('id');
+        tbl.increment('id')
+            .unique();
         tbl.string('name')
             .notNullable();
         tbl.text('description', 256);
