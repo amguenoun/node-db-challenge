@@ -1,12 +1,12 @@
 
 exports.up = function (knex) {
-    return knex.schema.createTable('products_resources', tbl => {
-        tbl.integer('pId')
-            .references('products.id')
+    return knex.schema.createTable('projects_resources', tbl => {
+        tbl.integer('projectId')
+            .references('project.id')
             .unsigned()
             .notNullable()
             .onDelete('CASCADE');
-        tbl.integer('rId')
+        tbl.integer('resourceId')
             .references('resources.id')
             .unsigned()
             .notNullable()
@@ -15,5 +15,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-    return knex.schema.dropTableIfExists('products_resources');
+    return knex.schema.dropTableIfExists('projects_resources');
 };
