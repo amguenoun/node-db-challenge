@@ -28,8 +28,12 @@ exports.validTask = (req, res, next) => {
                 }
                 else {
                     req.task = task;
+                    req.project = project;
                     next();
                 }
+            })
+            .catch(err => {
+                res.status(500).json({ message: "Cannot access database" })
             })
     }
 }
@@ -45,3 +49,57 @@ exports.validResource = (req, res, next) => {
     }
 }
 
+
+exports.validProjectId = (req, res, next) => {
+    const projectId = req.params.id
+    db('projects')
+        .where("id", projectId)
+        .then(project => {
+            if (!project) {
+                res.status(400).json({ message: "The projectId provided was not valid" });
+            }
+            else {
+                req.project = project
+                next();
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Cannot access database" })
+        })
+}
+
+exports.validTaskId = (req, res, next) => {
+    const taskId = req.params.id
+    db('tasks')
+        .where("id", taskId)
+        .then(task => {
+            if (!task) {
+                res.status(400).json({ message: "The taskId provided was not valid" });
+            }
+            else {
+                req.task = task
+                next();
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Cannot access database" })
+        })
+}
+
+exports.validResourceId = (req, res, next) => {
+    const resourceId = req.params.id
+    db('resources')
+        .where("id", resourceId)
+        .then(resources => {
+            if (!resources) {
+                res.status(400).json({ message: "The resourcesId provided was not valid" });
+            }
+            else {
+                req.resources = resources
+                next();
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Cannot access database" })
+        })
+}
