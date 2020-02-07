@@ -55,7 +55,7 @@ exports.validProjectId = (req, res, next) => {
     db('projects')
         .where("id", projectId)
         .then(project => {
-            if (!project) {
+            if (project.length == 0) {
                 res.status(400).json({ message: "The projectId provided was not valid" });
             }
             else {
@@ -73,7 +73,7 @@ exports.validTaskId = (req, res, next) => {
     db('tasks')
         .where("id", taskId)
         .then(task => {
-            if (!task) {
+            if (task.length == 0) {
                 res.status(400).json({ message: "The taskId provided was not valid" });
             }
             else {
@@ -91,7 +91,7 @@ exports.validResourceId = (req, res, next) => {
     db('resources')
         .where("id", resourceId)
         .then(resources => {
-            if (!resources) {
+            if (resources.length == 0) {
                 res.status(400).json({ message: "The resourcesId provided was not valid" });
             }
             else {
