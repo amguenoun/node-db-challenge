@@ -44,7 +44,7 @@ exports.validResource = (req, res, next) => {
         res.status(400).json({ message: "A resource requires a name field" });
     }
     else {
-        req.task = task;
+        req.resource = resource;
         next();
     }
 }
@@ -90,12 +90,12 @@ exports.validResourceId = (req, res, next) => {
     const resourceId = req.params.id
     db('resources')
         .where("id", resourceId)
-        .then(resources => {
-            if (resources.length == 0) {
-                res.status(400).json({ message: "The resourcesId provided was not valid" });
+        .then(resource => {
+            if (resource.length == 0) {
+                res.status(400).json({ message: "The resourceId provided was not valid" });
             }
             else {
-                req.resources = resources
+                req.resource = resource
                 next();
             }
         })

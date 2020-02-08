@@ -1,12 +1,12 @@
 const db = require('../../data/dbConfig');
 
 exports.createProject = (req, res) => {
-    project = req.project
+    const project = req.project
 
     db('projects')
         .insert(project)
         .then(id => {
-            res.status(201).json(id);
+            res.status(201).json({ id: id[0] });
         })
         .catch(err => {
             res.status(500).json({ message: "Cannot access database" });
@@ -24,6 +24,6 @@ exports.getAllProjects = (req, res) => {
 }
 
 exports.getProjectById = (req, res) => {
-    project = req.project
+    const project = req.project
     res.status(200).json(project)
 }
