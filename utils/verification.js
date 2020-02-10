@@ -28,7 +28,6 @@ exports.validTask = (req, res, next) => {
                 }
                 else {
                     req.task = task;
-                    req.project = project;
                     next();
                 }
             })
